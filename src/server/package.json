@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node build/server.js",
-    "watch": "webpack --color --watch & nodemon --expose-gc --inspect=0.0.0.0",
+    "watch": "webpack --color --watch & nodemon --expose-gc",
     "nodemon": "nodemon build/server.js",
     "build": "NODE_ENV=production webpack --color",
     "postbuild": "chown -R --reference=package.json .",
