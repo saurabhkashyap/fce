@@ -20,6 +20,7 @@ module.exports = {
     path: buildDir,
     filename: buildFilename
   },
+  devtool: "eval",
 
   context: __dirname,
   node: {

@@ -9,7 +9,6 @@ import EntrepriseModel from "./frentreprise/models/Entreprise";
 import EtablissementModel from "./frentreprise/models/Etablissement";
 import { isDev } from "./utils/isDev";
 import fceGraphQL from "./graphql";
-import { graphiqlExpress } from "apollo-server-express";
 
 require("dotenv").config();
 const config = require("config");
@@ -56,7 +55,6 @@ async function init() {
   app.use(bodyParser.json()); // support json encoded bodies
   app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
   await fceGraphQL(app);
-  app.use("/graphiql", graphiqlExpress({ endpointURL: '/graphql' }));
 }
 
 function run() {
@@ -64,10 +62,6 @@ function run() {
   app.use(Sentry.Handlers.requestHandler());
   app.use(express.static(htdocs_path));
   app.use("/api", apiRouter);
-
-  app.get("*", function (req, res) {
-    res.sendFile("index.html", { root: htdocs_path });
-  });
 
   app.use(Sentry.Handlers.errorHandler());
 

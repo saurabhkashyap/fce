@@ -27,12 +27,7 @@ const fceGraphQL = async (app) => {
     resolvers
   });
 
-  try {
-    await server.start();
-  } catch (err) {
-    console.error("Error starting gql server");
-    console.error(err);
-  }
+  await server.start();
 
   server.applyMiddleware({ app });
 }
