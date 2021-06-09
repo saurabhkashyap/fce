@@ -1,3 +1,5 @@
+import { mapKeys } from "lodash";
+
 export function copyKeys(source, keys, defaultValue) {
   const dest = {};
 
@@ -29,3 +31,5 @@ export function clean(obj) {
     deleteKeyIfNotDefinedOrEmpty(obj, propName);
   }
 }
+
+export const renameKeys = (keys) => (obj) => mapKeys(obj, (value, key) => keys[key] || key);

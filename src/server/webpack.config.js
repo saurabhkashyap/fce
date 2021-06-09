@@ -12,7 +12,12 @@ const PRODUCTION = process.env.NODE_ENV === "production";
 module.exports = {
   target: "node",
 
-  externals: [nodeExternals()],
+  externals: [
+    nodeExternals(),
+    {
+      knex: "commonjs knex"
+    }
+  ],
 
   entry: "./src/index.js",
 
