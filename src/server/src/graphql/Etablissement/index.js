@@ -1,6 +1,4 @@
 import {gql} from "apollo-server-express";
-import {resolveRupcoProcedureFromSiret} from "../Rupco/rupcoDatasourceUtils";
-import {procedure} from "../Rupco/RupcoDataSource";
 
 export const etablissementTypeDef = gql`
   type Etablissement {
@@ -8,6 +6,7 @@ export const etablissementTypeDef = gql`
     pse: [Rupco]
     rcc: [Rupco]
     lice: [Rupco]
+    activitePartielle: [ActivitePartielle]
   }
 `;
 

@@ -2,6 +2,7 @@ import { ApolloServer, gql } from 'apollo-server-express';
 import dataSources from "./dataSources";
 import {rupcoResolvers, rupcoTypeDef} from "./Rupco";
 import {etablissementResolvers, etablissementTypeDef} from "./Etablissement";
+import {activitePartielleResolvers, activitePartielleTypeDef} from "./ActivitePartielle";
 
 // The GraphQL schema in string form
 const typeDefs = gql`
@@ -31,8 +32,8 @@ const resolvers = {
 
 const fceGraphQL = async (app) => {
   const server = new ApolloServer({
-    typeDefs: [typeDefs, rupcoTypeDef, etablissementTypeDef],
-    resolvers: [resolvers, rupcoResolvers, etablissementResolvers],
+    typeDefs: [typeDefs, rupcoTypeDef, etablissementTypeDef, activitePartielleTypeDef],
+    resolvers: [resolvers, rupcoResolvers, etablissementResolvers, activitePartielleResolvers],
     dataSources
   });
 
