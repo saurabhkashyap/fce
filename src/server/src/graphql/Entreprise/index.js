@@ -22,6 +22,9 @@ export const entrepriseTypeDef = gql`
     naf: String
     libelle_naf: String
     interactions_3E_SEER: [InteractionsPole3eSeer]
+    interactions_3E_SRC: [InteractionsPole3eSrc]
+    interactions_C: [InteractionsPoleC]
+    interactions_T: [InteractionsPoleT]
   }
 `;
 

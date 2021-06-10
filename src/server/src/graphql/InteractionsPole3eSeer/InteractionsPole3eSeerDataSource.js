@@ -1,9 +1,8 @@
 import { SQLDataSource } from "datasource-sql";
 import { getFormatedDate } from "../../utils/date";
+import {trimValue} from "../../utils/string";
 
 const CACHE_DURATION = 60*60*24;
-
-const trimValue = (value) => value && value.trim();
 
 export default class InteractionsPole3eSeerDataSource extends SQLDataSource {
   async getInteractionsBySiren(siren) {
@@ -14,6 +13,7 @@ export default class InteractionsPole3eSeerDataSource extends SQLDataSource {
 
     return response.map(
       (interaction) => ({
+        siret: interaction.siret,
         date: getFormatedDate(interaction.date_visite),
         pole: "3E_SEER",
         unite: `Service Entreprise ${
