@@ -7,6 +7,7 @@ export const etablissementTypeDef = gql`
     rcc: [Rupco]
     lice: [Rupco]
     activitePartielle: [ActivitePartielle]
+    apprentissage: [Apprentissage]
   }
 `;
 
