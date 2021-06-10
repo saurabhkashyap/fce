@@ -9,5 +9,6 @@ export const renameEntrepriseKeys = renameKeys({
   datedebut: "date_de_radiation",
   caractereemployeurunitelegale: "entreprise_employeur",
   anneeeffectifsunitelegale: "annee_tranche_effectif",
-  trancheeffectifsunitelegale: "tranche_effectif"
+  trancheeffectifsunitelegale: "tranche_effectif",
+  activiteprincipaleunitelegale: "naf"
 })

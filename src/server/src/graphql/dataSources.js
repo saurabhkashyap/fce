@@ -6,6 +6,8 @@ import EntrepriseDataSource from "./Entreprise/EntrepriseDataSource";
 import ApprentissageDataSource from "./Apprentissage/ApprentissageDataSource";
 import CategorieJuridiqueDataSource from "./CategorieJuridique/CategorieJuridiqueDataSource";
 import IdccDataSource from "./Idcc/IdccDataSource";
+import NafDataSource from "./Naf/NafDataSource";
+import InteractionsPole3eSeerDataSource from "./InteractionsPole3eSeer/InteractionsPole3eSeerDataSource";
 
 const knexConfig = {
   client: "pg",
@@ -19,5 +21,7 @@ export default () => ({
   entreprise: new EntrepriseDataSource(knexConfig),
   apprentissage: new ApprentissageDataSource(knexConfig),
   categorieJuridique: new CategorieJuridiqueDataSource(knexConfig),
-  idcc: new IdccDataSource(knexConfig)
+  idcc: new IdccDataSource(knexConfig),
+  naf: new NafDataSource(knexConfig),
+  interactiions3eSeer: new InteractionsPole3eSeerDataSource(knexConfig)
 });

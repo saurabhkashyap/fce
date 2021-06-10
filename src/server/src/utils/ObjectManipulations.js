@@ -33,3 +33,8 @@ export function clean(obj) {
 }
 
 export const renameKeys = (keys) => (obj) => mapKeys(obj, (value, key) => keys[key] || key);
+
+export const replaceProp = (key, iteratee) => (obj) => ({
+  ...obj,
+  [key]: iteratee(obj)
+});

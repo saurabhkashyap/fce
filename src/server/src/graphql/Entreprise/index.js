@@ -19,6 +19,9 @@ export const entrepriseTypeDef = gql`
     tranche_effectif: String
     categorie_juridique: CategorieJuridique
     idcc: [Idcc]
+    naf: String
+    libelle_naf: String
+    interactions_3E_SEER: [InteractionsPole3eSeer]
   }
 `;
 

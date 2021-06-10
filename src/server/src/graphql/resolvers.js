@@ -5,6 +5,8 @@ import {entrepriseResolver} from "./Entreprise";
 import {apprentissageResolver} from "./Apprentissage";
 import {categorieJuridiqueResolver} from "./CategorieJuridique";
 import {idccResolvers} from "./Idcc";
+import {nafResolvers} from "./Naf";
+import {interactionsPole3eSeerResolvers} from "./InteractionsPole3eSeer";
 
 const resolvers = [
   rupcoResolvers,
@@ -13,7 +15,9 @@ const resolvers = [
   entrepriseResolver,
   apprentissageResolver,
   categorieJuridiqueResolver,
-  idccResolvers
+  idccResolvers,
+  nafResolvers,
+  interactionsPole3eSeerResolvers
 ]
 
 export default resolvers;

@@ -6,6 +6,7 @@ import {apprentissageTypeDef} from "./Apprentissage";
 import {categorieJuridiqueTypeDef} from "./CategorieJuridique";
 import {idccTypeDef} from "./Idcc";
 import {gql} from "apollo-server-express";
+import {interactionsPole3eSeerTypeDefs} from "./InteractionsPole3eSeer";
 
 const queryTypeDef = gql`
   type Query {
@@ -21,7 +22,8 @@ const typeDefs = [
   entrepriseTypeDef,
   apprentissageTypeDef,
   categorieJuridiqueTypeDef,
-  idccTypeDef
+  idccTypeDef,
+  interactionsPole3eSeerTypeDefs
 ];
 
 export default typeDefs;
