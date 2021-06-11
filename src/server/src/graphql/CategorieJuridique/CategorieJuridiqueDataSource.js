@@ -1,14 +1,12 @@
-import {SQLDataSource} from "datasource-sql";
+import { fetchFromTable } from "../../utils/knex";
 
-const CACHE_DURATION = 60*60*24;
+const getCategoryJuridique = fetchFromTable({
+  tableName: "categorie_juridique",
+  formatResponse: (response) => response[0] || null
+});
 
-export default class CategorieJuridiqueDataSource extends SQLDataSource {
-  async getCategorieByCode(code) {
-    const result = await this.knex("categorie_juridique")
-      .where({ code })
-      .select()
-      .cache(CACHE_DURATION);
+const categorieJuridique = (knex) => ({
+  getCategorieByCode: (code) => getCategoryJuridique(knex)({ code }),
+})
 
-    return result[0] || null;
-  }
-}
+export default categorieJuridique;

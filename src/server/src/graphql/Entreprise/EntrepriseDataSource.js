@@ -1,15 +1,16 @@
-import { SQLDataSource } from "datasource-sql";
-import {renameEntrepriseKeys} from "./entrepriseUtils";
+import { renameEntrepriseKeys } from "./entrepriseUtils";
+import { fetchFromTable } from "../../utils/knex";
+import { map } from "lodash/fp";
 
-const CACHE_DURATION = 60*60*24;
+const formatResponse = map(renameEntrepriseKeys);
 
-export default class EntrepriseDataSource extends SQLDataSource {
-  async getEntrepriseBySiren(siren) {
-    const result = await this.knex("entreprises")
-      .where({ siren })
-      .select()
-      .cache(CACHE_DURATION);
+const getEntreprise = fetchFromTable({
+  tableName: "entreprises",
+  formatResponse
+})
 
-    return result.map(renameEntrepriseKeys);
-  }
-}
+const entreprise = (knex) => ({
+  getEntrepriseBySiren: (siren) => getEntreprise(knex)({ siren }),
+})
+
+export default entreprise;

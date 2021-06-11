@@ -15,6 +15,6 @@ export const activitePartielleTypeDef = gql`
 export const activitePartielleResolvers = {
   Etablissement: {
     activitePartielle: (parent, _, { dataSources }) =>
-      dataSources.activitePartielle.getActivitePartielleBySiret(parent.siret)
+      dataSources.postgre.activitePartielle().getActivitePartielleBySiret(parent.siret)
   }
 }

@@ -8,13 +8,17 @@ export const etablissementTypeDef = gql`
     lice: [Rupco]
     activitePartielle: [ActivitePartielle]
     apprentissage: [Apprentissage]
+    interactions_3E_SEER: [InteractionsPole3eSeer]
+    interactions_3E_SRC: [InteractionsPole3eSrc]
+    interactions_C: [InteractionsPoleC]
+    interactions_T: [InteractionsPoleT]
   }
 `;
 
 export const etablissementResolvers = {
   Entreprise: {
     etablissements: (parent, _, { dataSources }) => {
-      return dataSources.etablissement.getEtablissementsBySiren(parent.siren)
+      return dataSources.postgre.etablissements().getEtablissementsBySiren(parent.siren)
     }
   },
 }

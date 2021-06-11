@@ -10,7 +10,7 @@ export const categorieJuridiqueTypeDef = gql`
 export const categorieJuridiqueResolver = {
   Entreprise: {
     categorie_juridique(parent, query, { dataSources }) {
-      return dataSources.categorieJuridique.getCategorieByCode(parent.categoriejuridiqueunitelegale);
+      return dataSources.postgre.categorieJuridique().getCategorieByCode(parent.categoriejuridiqueunitelegale);
     }
   }
 }

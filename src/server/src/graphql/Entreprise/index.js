@@ -31,7 +31,7 @@ export const entrepriseTypeDef = gql`
 export const entrepriseResolver = {
   Query: {
     entreprise(parent, query, { dataSources }) {
-      return dataSources.entreprise.getEntrepriseBySiren(query.siren);
+      return dataSources.postgre.entreprise().getEntrepriseBySiren(query.siren);
     }
   }
 }

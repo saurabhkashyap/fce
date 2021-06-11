@@ -13,6 +13,10 @@ export const interactionsPoleCTypeDefs = `
 export const interactionsPoleCResolvers = {
   Entreprise: {
     interactions_C: (parent, _, { dataSources }) =>
-      dataSources.interactionsC.getInteractionsBySiren(parent.siren)
+      dataSources.postgre.interactionsPoleC().getInteractionsBySiren(parent.siren)
+  },
+  Etablissement: {
+    interactions_C: (parent, _, { dataSources }) =>
+      dataSources.postgre.interactionsPoleC().getInteractionsBySiret(parent.siret)
   }
 }

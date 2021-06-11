@@ -10,12 +10,12 @@ export const idccTypeDef = gql`
 export const idccResolvers = {
   Entreprise: {
     idcc: (parent, _, { dataSources }) => {
-      return dataSources.idcc.getIdccBySiren(parent.siren)
+      return dataSources.postgre.idcc().getIdccBySiren(parent.siren)
     }
   },
   Idcc: {
     libelle: (parent, _, { dataSources }) => {
-      return dataSources.idcc.getIdccLibelleByCode(parent.code)
+      return dataSources.postgre.idcc().getIdccLibelleByCode(parent.code)
     }
   }
 }

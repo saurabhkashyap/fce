@@ -1,13 +1,14 @@
-import { SQLDataSource } from "datasource-sql";
+import {fetchFromTable} from "../../utils/knex";
 
-const CACHE_DURATION = 60*60*24;
+const formatResponse = (response) => (response[0] || {}).libelle;
 
-export default class NafDataSource extends SQLDataSource {
-  async getNafLibelleByCode(code) {
-    const response = await this.knex("naf")
-      .where({ code })
-      .select()
-      .cache(CACHE_DURATION);
-    return (response[0] || {}).libelle;
-  }
-}
+const getNaf = fetchFromTable({
+  tableName: "naf",
+  formatResponse
+});
+
+const naf = (knex) => ({
+  getNafLibelleByCode: (code) => getNaf(knex)({ code })
+})
+
+export default naf;

@@ -1,26 +1,27 @@
 import { SQLDataSource } from "datasource-sql";
 import {renameKeys} from "../../utils";
+import {fetchFromTable} from "../../utils/knex";
+import { map } from "lodash/fp";
 
 const CACHE_DURATION = 60*60*24;
 
-export default class IdccDataSource extends SQLDataSource {
-  async getIdccBySiren(siren) {
-    const response = await this.knex("etablissements_idcc")
-      .where({ siren })
-      .select()
-      .cache(CACHE_DURATION);
+const formatEtablissementsIdcc = map(renameKeys({
+  idcc: "code"
+}));
 
-    return response.map(renameKeys({
-      idcc: "code"
-    }));
-  }
+const getEtablissementsIdcc = fetchFromTable({
+  tableName: "etablissements_idcc",
+  formatResponse: formatEtablissementsIdcc
+});
 
-  async getIdccLibelleByCode(code) {
-    const response = await this.knex("idcc")
-      .where({ code })
-      .select()
-      .cache(CACHE_DURATION)
+const getIdcc =  fetchFromTable({
+  tableName: "idcc",
+  formatResponse: (response) => (response[0] || {}).libelle || ""
+});
 
-    return (response[0] || {}).libelle || "";
-  }
-}
+const idcc = (knex) => ({
+  getIdccBySiren: (siren) => getEtablissementsIdcc(knex)({ siren }),
+  getIdccLibelleByCode: (code) => getIdcc(knex)({ code }),
+})
+
+export default idcc;

@@ -1,19 +1,16 @@
-import { SQLDataSource } from "datasource-sql";
+import { fetchFromTable } from "../../utils/knex";
 
-const CACHE_DURATION = 60*60*24;
+const getApprentissage = fetchFromTable({
+  tableName: "etablissements_apprentissage"
+});
 
-export default class ApprentissageDataSource extends SQLDataSource {
-  async getApprentissageBySiren(siren) {
-    return this.knex("etablissements_apprentissage")
-      .where({ siren })
-      .select()
-      .cache(CACHE_DURATION);
-  }
+const apprentissage = (knex) => {
+  const getApprentissageFromKnex = getApprentissage(knex);
 
-  async getApprentissageBySiret(siret) {
-    return this.knex("etablissements_apprentissage")
-      .where({ siret })
-      .select()
-      .cache(CACHE_DURATION);
+  return {
+    getApprentissageBySiren: (siren) => getApprentissageFromKnex({ siren }),
+    getApprentissageBySiret: (siret) => getApprentissageFromKnex({ siret })
   }
 }
+
+export default apprentissage;

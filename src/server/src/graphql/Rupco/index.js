@@ -22,7 +22,7 @@ export const rupcoTypeDef = gql`
 export const rupcoResolvers = {
   Rupco: {
     async etablissements(parent, _, { dataSources }) {
-      return await dataSources.rupco.getRupcoEtablissement(parent.numero);
+      return await dataSources.postgre.rupco().getRupcoEtablissement(parent.numero);
     },
   },
   Entreprise: {

@@ -1,8 +1,6 @@
-import { SQLDataSource } from "datasource-sql";
 import { flow } from "lodash";
 import {filterRupturesByType, renameRuptures} from "./rupcoDatasourceUtils";
-
-const CACHE_DURATION = 60*60*24;
+import {fetchFromTable} from "../../utils/knex";
 
 export const procedure = {
   PSE: "PSE",
@@ -10,34 +8,30 @@ export const procedure = {
   RCC: "RCC"
 };
 
-export default class RupcoDataSource extends SQLDataSource {
-  async getRupcoEtablissement(numero) {
-    const response = await this.knex("rupco_etablissements")
-      .select("*")
-      .where({ numero })
-      .cache(CACHE_DURATION);
+const getRupcoEtablissement = fetchFromTable({
+  tableName: "rupco_etablissements",
+  formatResponse: renameRuptures
+});
 
-    return renameRuptures(response);
-  }
+const getRupcoProcedure = (type) => fetchFromTable({
+  tableName: "rupco_procedures",
+  formatResponse: filterRupturesByType(type)
+});
 
-  async getRupcoProcedureBySiren(siren, type) {
-    const response = await this.knex("rupco_procedures")
-      .select("*")
-      .where({ siren })
-      .cache(CACHE_DURATION)
+const getRupcoEtablissementWithFilter = (type) => fetchFromTable({
+  tableName: "rupco_etablissements",
+  formatResponse: flow(
+    filterRupturesByType(type),
+    renameRuptures
+  )
+});
 
-    return filterRupturesByType(type)(response);
-  }
-
-  async getRupcoEtablissementBySiret(siret, type) {
-    const response = await this.knex("rupco_etablissements")
-      .select("*")
-      .where({ siret })
-      .cache(CACHE_DURATION)
-
-    return flow(
-      filterRupturesByType(type),
-      renameRuptures
-    )(response);
+const rupco = (knex) => {
+  return {
+    getRupcoEtablissement: (numero) => getRupcoEtablissement(knex)({ numero }),
+    getRupcoProcedureBySiren: (siren, type) => getRupcoProcedure(type)(knex)({ siren }),
+    getRupcoEtablissementBySiret: (siret,type) => getRupcoEtablissementWithFilter(type)(knex)({ siret })
   }
 }
+
+export default rupco;

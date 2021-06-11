@@ -12,12 +12,12 @@ export const apprentissageTypeDef = gql`
 export const apprentissageResolver = {
   Entreprise: {
     apprentissage(parent, query, { dataSources }) {
-      return dataSources.apprentissage.getApprentissageBySiren(parent.siren);
+      return dataSources.postgre.apprentissage().getApprentissageBySiren(parent.siren);
     }
   },
   Etablissement: {
     apprentissage(parent, query, { dataSources }) {
-      return dataSources.apprentissage.getApprentissageBySiret(parent.siret);
+      return dataSources.postgre.apprentissage().getApprentissageBySiret(parent.siret);
     }
   }
 }

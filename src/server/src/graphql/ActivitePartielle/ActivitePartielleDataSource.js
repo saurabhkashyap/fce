@@ -1,15 +1,16 @@
-import { SQLDataSource } from "datasource-sql";
-import {formatActivitePartielleData} from "./activitePartielleUtils";
+import { formatActivitePartielleData } from "./activitePartielleUtils";
+import { map } from "lodash/fp";
+import { fetchFromTable } from "../../utils/knex";
 
-const CACHE_DURATION = 60*60*24;
+const formatResponse = map(formatActivitePartielleData);
 
-export default class ActivitePartielleDataSource extends SQLDataSource {
-  async getActivitePartielleBySiret(siret) {
-    const data = await this.knex("etablissements_activite_partielle")
-      .where({ siret })
-      .select("*")
-      .cache(CACHE_DURATION)
+const getActivitePartielle = fetchFromTable({
+  tableName: "etablissements_activite_partielle",
+  formatResponse
+});
 
-    return data.map(formatActivitePartielleData);
-  }
-}
+const activitePartielle = (knex) => ({
+  getActivitePartielleBySiret: (siret) => getActivitePartielle(knex)({ siret })
+});
+
+export default activitePartielle;

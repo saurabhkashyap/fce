@@ -12,6 +12,10 @@ export const interactionsPole3eSrcTypeDefs = `
 export const interactionsPole3eSrcResolvers = {
   Entreprise: {
     interactions_3E_SRC: (parent, _, { dataSources }) =>
-      dataSources.interactions3eSrc.getInteractionsBySiren(parent.siren)
+      dataSources.postgre.interactionsPole3eSrc().getInteractionsBySiren(parent.siren)
+  },
+  Etablissement: {
+    interactions_3E_SRC: (parent, _, { dataSources }) =>
+      dataSources.postgre.interactionsPole3eSrc().getInteractionsBySiret(parent.siret)
   }
 }
